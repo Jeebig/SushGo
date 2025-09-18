@@ -39,6 +39,18 @@ class OrderForm(forms.Form):
     need_napkins = forms.BooleanField(label="Need napkins?", required=False, initial=True)
     need_wasabi = forms.BooleanField(label="Add wasabi and ginger", required=False)
     comment = forms.CharField(label="Additional comment", widget=forms.Textarea(attrs={'rows': 3}), required=False)
+    delivery_time = forms.TimeField(
+        label="Preferred delivery time",
+        required=False,
+        widget=forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
+        help_text="Select the time for delivery (optional)"
+    )
+    contact_after = forms.BooleanField(
+        label="Contact me after order",
+        required=False,
+        initial=False,
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -51,3 +63,4 @@ class OrderForm(forms.Form):
         self.fields['sticks_type'].widget.attrs.update({'class': 'form-select'})
         self.fields['sushi'].widget.attrs.update({'class': 'form-select'})
         self.fields['comment'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Delivery notes, door code, preferred time, etc.'})
+        self.fields['delivery_time'].widget.attrs.update({'placeholder': 'HH:MM'})

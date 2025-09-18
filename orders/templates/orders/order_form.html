@@ -2,7 +2,7 @@
 {% block title %}Place Order | SushiGo{% endblock %}
 {% block content %}
 <div class="row g-4 align-items-stretch">
-  <div class="col-12 col-lg-6">
+  <div class="col-12">
     <div class="card shadow-sm h-100">
       <div class="card-body p-4 p-lg-5">
         <h1 class="h3 fw-bold mb-3">Sushi Order</h1>
@@ -71,6 +71,17 @@
               <label class="form-label" for="{{ form.comment.id_for_label }}">{{ form.comment.label }}</label>
               {{ form.comment }}
               {% if form.comment.errors %}<div class="text-danger small">{{ form.comment.errors|striptags }}</div>{% endif %}
+
+              <label class="form-label mt-3" for="{{ form.delivery_time.id_for_label }}">{{ form.delivery_time.label }}</label>
+              {{ form.delivery_time }}
+              <div class="form-text">{{ form.delivery_time.help_text }}</div>
+              {% if form.delivery_time.errors %}<div class="text-danger small">{{ form.delivery_time.errors|striptags }}</div>{% endif %}
+
+              <div class="form-check mt-3">
+                {{ form.contact_after }}
+                <label class="form-check-label" for="{{ form.contact_after.id_for_label }}">{{ form.contact_after.label }}</label>
+              </div>
+              {% if form.contact_after.errors %}<div class="text-danger small">{{ form.contact_after.errors|striptags }}</div>{% endif %}
             </div>
           </div>
 
@@ -83,25 +94,6 @@
     </div>
   </div>
 
-  <div class="col-12 col-lg-6">
-    <div class="h-100 p-4 p-lg-5 rounded-4 gradient-surface shadow-sm d-flex flex-column justify-content-between">
-      <div>
-        <h2 class="h4 fw-bold mb-3">Why choose us?</h2>
-        <ul class="list-unstyled lh-lg mb-4">
-          <li>• Fresh ingredients daily</li>
-          <li>• Delivery within <strong>up to 45 minutes</strong> in the city</li>
-          <li>• Wide selection of rolls and sets</li>
-        </ul>
-      </div>
-      <div>
-        <div class="tip-box p-3 rounded-3 bg-white shadow-sm">
-          <p class="mb-1"><strong>Tip:</strong> ordering for a group? Add more chopsticks and napkins.</p>
-        </div>
-        <div class="small text-secondary mt-3">
-          Questions? Call: +38 (044) 123-45-67 • Mon–Sun 10:00–22:00
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Правая колонка удалена, осталась только форма заказа -->
 </div>
 {% endblock %}

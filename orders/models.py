@@ -20,6 +20,8 @@ class Order(models.Model):
     need_wasabi = models.BooleanField(default=False)
     sushi_json = models.TextField(help_text="JSON array of selected sushi items")
     comment = models.TextField(blank=True)
+    delivery_time = models.TimeField(null=True, blank=True)
+    contact_after = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

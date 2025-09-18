@@ -23,6 +23,8 @@ def order_create(request):
                     need_wasabi=data['need_wasabi'],
                     sushi_json=json.dumps(data['sushi']),
                     comment=data.get('comment', ''),
+                    delivery_time=data.get('delivery_time'),
+                    contact_after=data.get('contact_after', False),
                 )
                 return redirect('orders:success', order_id=order.id)
         else:
