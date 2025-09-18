@@ -1,0 +1,61 @@
+{% extends "orders/base.html" %}
+{% block title %}Order Placed | SushiGo{% endblock %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-12 col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4 p-lg-5">
+        <h1 class="h4 fw-bold mb-3">Thank you! Your order has been placed.</h1>
+        <p class="mb-4">Order ID: <strong>#{{ order.id }}</strong></p>
+
+        <div class="vstack gap-2">
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Name</div><div class="fw-semibold text-end">{{ order.name }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Address</div><div class="fw-semibold text-end">{{ order.address }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Phone</div><div class="fw-semibold text-end">{{ order.phone }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Email</div><div class="fw-semibold text-end">{{ order.email }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Number of chopsticks</div><div class="fw-semibold text-end">{{ order.sticks_count }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Chopstick type</div><div class="fw-semibold text-end">{{ order.sticks_type }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Napkins</div><div class="fw-semibold text-end">{{ order.need_napkins|yesno:"Yes,No" }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Wasabi & ginger</div><div class="fw-semibold text-end">{{ order.need_wasabi|yesno:"Yes,No" }}</div>
+          </div>
+
+          <div class="mb-2">
+            <div class="small text-secondary mb-1">Sushi</div>
+            <ul class="mb-0 ps-3">
+              {% for item in sushi %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          {% if order.comment %}
+            <div>
+              <div class="small text-secondary mb-1">Comment</div>
+              <div>{{ order.comment|linebreaksbr }}</div>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+          <a class="btn btn-primary" href="{% url 'orders:create' %}">Place another order</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

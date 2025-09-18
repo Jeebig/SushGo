@@ -1,0 +1,77 @@
+{% extends "orders/base.html" %}
+{% block title %}Order Summary | SushiGo{% endblock %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-12 col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4 p-lg-5">
+        <h1 class="h4 fw-bold mb-3">Order Summary</h1>
+        <div class="vstack gap-2">
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Name</div><div class="fw-semibold text-end">{{ data.name }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Address</div><div class="fw-semibold text-end">{{ data.address }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Phone</div><div class="fw-semibold text-end">{{ data.phone }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Email</div><div class="fw-semibold text-end">{{ data.email }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Number of chopsticks</div><div class="fw-semibold text-end">{{ data.sticks_count }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Chopstick type</div><div class="fw-semibold text-end">{{ data.sticks_type }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Napkins</div><div class="fw-semibold text-end">{{ data.need_napkins|yesno:"Yes,No" }}</div>
+          </div>
+          <div class="d-flex justify-content-between gap-3 border-bottom pb-2">
+            <div class="small text-secondary">Wasabi & ginger</div><div class="fw-semibold text-end">{{ data.need_wasabi|yesno:"Yes,No" }}</div>
+          </div>
+
+          <div class="mb-2">
+            <div class="small text-secondary mb-1">Sushi</div>
+            <ul class="mb-0 ps-3">
+              {% for item in data.sushi %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          {% if data.comment %}
+            <div>
+              <div class="small text-secondary mb-1">Comment</div>
+              <div>{{ data.comment|linebreaksbr }}</div>
+            </div>
+          {% endif %}
+        </div>
+
+        <form method="post" class="mt-4">
+          {% csrf_token %}
+          <input type="hidden" name="confirm" value="1"/>
+          <input type="hidden" name="name" value="{{ data.name }}">
+          <input type="hidden" name="address" value="{{ data.address }}">
+          <input type="hidden" name="phone" value="{{ data.phone }}">
+          <input type="hidden" name="email" value="{{ data.email }}">
+          <input type="hidden" name="sticks_count" value="{{ data.sticks_count }}">
+          <input type="hidden" name="sticks_type" value="{{ data.sticks_type }}">
+          {% for item in data.sushi %}
+            <input type="hidden" name="sushi" value="{{ item }}">
+          {% endfor %}
+          {% if data.need_napkins %}<input type="hidden" name="need_napkins" value="on">{% endif %}
+          {% if data.need_wasabi %}<input type="hidden" name="need_wasabi" value="on">{% endif %}
+          <input type="hidden" name="comment" value="{{ data.comment }}">
+          <div class="d-flex gap-2">
+            <a href="javascript:history.back()" class="btn btn-outline-secondary">Edit</a>
+            <button type="submit" class="btn btn-success">Confirm</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
